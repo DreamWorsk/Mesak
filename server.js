@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const wss = new WebSocket.Server({ noServer: true });
+const wss = new WebSocket.Server({ Server: true });
 
 // Статический хостинг файлов из папки public
 app.use(express.static('public'));
