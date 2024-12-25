@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .channels {
+            width: 20%;
+            background: #f3f3f3;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+        .channel {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .channel:hover {
+            background: #e0e0e0;
+        }
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin-bottom: 5px;
+        }
+        .form {
+            display: flex;
+        }
+        .form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-right: 0;
+        }
+        .form button {
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="channels" id="channels"></div>
+    <div class="chat">
+        <div class="messages" id="messages"></div>
+        <div class="form">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+    <script src="messenger.js"></script>
+</body>
+</html>
