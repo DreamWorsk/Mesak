@@ -37,12 +37,11 @@ app.get('/api/messages/:channel', (req, res) => {
     }
 });
 
-// Обработчик для WebSocket-соединений
+// Перенаправляем соединения WebSocket через сервер
 app.server = app.listen(3000, () => {
     console.log('Сервер запущен на http://localhost:3000');
 });
 
-// Перенаправляем соединения WebSocket через сервер
 app.server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {
         wss.emit('connection', ws, request);
