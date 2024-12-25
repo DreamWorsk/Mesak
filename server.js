@@ -1,12 +1,10 @@
 const express = require('express');
-const http = require('http');
 const WebSocket = require('ws');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ noServer: true });
 
 // Статический хостинг файлов из папки public
 app.use(express.static('public'));
@@ -37,6 +35,18 @@ app.get('/api/messages/:channel', (req, res) => {
     } else {
         res.json([]);
     }
+});
+
+// Обработчик для WebSocket-соединений
+app.server = app.listen(3000, () => {
+    console.log('Сервер запущен на http://localhost:3000');
+});
+
+// Перенаправляем соединения WebSocket через сервер
+app.server.on('upgrade', (request, socket, head) => {
+    wss.handleUpgrade(request, socket, head, (ws) => {
+        wss.emit('connection', ws, request);
+    });
 });
 
 // WebSocket-соединения
@@ -81,9 +91,4 @@ wss.on('connection', (ws) => {
     ws.on('close', () => {
         console.log('Соединение закрыто');
     });
-});
-
-// Запуск сервера
-server.listen(3000, () => {
-    console.log('Сервер запущен на http://localhost:3000');
 });
